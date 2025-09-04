@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Parampreet Singh | Portfolio</title>
+  <meta name="description" content="Portfolio of Parampreet Singh – Java, C++, MERN, DSA. Projects, education, and contact." />
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet" />
+
+  <style>
+    :root {
+      --bg: #0b1220;
+      --surface: rgba(255,255,255,0.06);
+      --text: #eaf0ff;
+      --muted: #b7c2e3;
+      --brand1: #5aa9ff;
+      --brand2: #00c6ff;
+      --accent: #ffe47a;
+      --card: rgba(255,255,255,0.08);
+      --shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+      --radius: 18px;
+    }
+    *{box-sizing:border-box}
+    html,body{margin:0;padding:0}
+    body{
+      font-family:'Poppins',sans-serif;
+      background: radial-gradient(1200px 800px at 80% -10%, rgba(90,169,255,0.18), transparent),
+                  radial-gradient(900px 600px at 0% 0%, rgba(0,198,255,0.15), transparent),
+                  var(--bg);
+      color:var(--text);
+      overflow-x: hidden;
+      scroll-behavior: smooth;
+    }
+
+    /* NAV */
+    .nav{
+      position:sticky; top:0; z-index:50;
+      display:flex; align-items:center; justify-content:space-between;
+      padding:12px 24px; backdrop-filter: blur(10px);
+      background: linear-gradient(90deg, rgba(11,18,32,0.65), rgba(11,18,32,0.35));
+      border-bottom:1px solid rgba(255,255,255,0.08);
+    }
+    .brand{display:flex; align-items:center; gap:12px; font-weight:700}
+    .brand .dot{width:12px;height:12px;background:linear-gradient(135deg,var(--brand1),var(--brand2));border-radius:50%;box-shadow:0 0 18px rgba(0,198,255,0.75)}
+    .nav a{color:var(--muted); text-decoration:none; margin:0 10px; font-weight:500}
+    .nav a:hover{color:var(--accent)}
+    .nav .cta{
+      padding:10px 14px; border-radius:12px; background:linear-gradient(135deg,var(--brand1),var(--brand2));
+      color:#001226; font-weight:700; box-shadow:var(--shadow)
+    }
+
+    /* HERO */
+    .hero{position:relative; min-height:80vh; display:grid; place-items:center; overflow:hidden}
+    .hero video{position:absolute; inset:0; width:100%; height:100%; object-fit:cover; filter:brightness(0.45) saturate(1.1)}
+    .hero .overlay{position:absolute; inset:0; background: radial-gradient(800px 400px at 70% 10%, rgba(0,198,255,0.20), transparent)}
+    .hero .content{position:relative; z-index:2; text-align:center; padding:0 24px}
+    .title{font-size:clamp(2rem, 4.8vw, 4rem); font-weight:700; letter-spacing:0.5px}
+    .subtitle{margin-top:12px; font-size:clamp(1rem, 2.2vw, 1.3rem); color:var(--muted)}
+    .chips{display:flex; flex-wrap:wrap; gap:10px; justify-content:center; margin:22px 0}
+    .chip{padding:8px 12px; border-radius:999px; background:var(--surface); border:1px solid rgba(255,255,255,0.08); color:#e5eeff}
+    .actions{display:flex; gap:12px; justify-content:center; flex-wrap:wrap}
+    .btn{border:none; cursor:pointer; padding:12px 16px; border-radius:14px; font-weight:700}
+    .btn.primary{background:linear-gradient(135deg,var(--brand1),var(--brand2)); color:#001226}
+    .btn.ghost{background:transparent; color:var(--text); border:1px solid rgba(255,255,255,0.15)}
+
+    /* SECTIONS */
+    section{max-width:1100px; margin:80px auto; padding:0 24px}
+    .section-title{font-size:clamp(1.4rem, 2.4vw, 2rem); margin-bottom:18px}
+    .section-sub{color:var(--muted); margin-bottom:28px}
+
+    /* GRID */
+    .grid{display:grid; gap:18px}
+    .grid.cols-3{grid-template-columns:repeat(3,1fr)}
+    .grid.cols-2{grid-template-columns:repeat(2,1fr)}
+    @media (max-width:900px){.grid.cols-3{grid-template-columns:1fr 1fr}}
+    @media (max-width:640px){.grid.cols-3,.grid.cols-2{grid-template-columns:1fr}}
+
+    .card{
+      background:var(--card); border:1px solid rgba(255,255,255,0.08); border-radius:var(--radius);
+      padding:18px; box-shadow:var(--shadow); position:relative; overflow:hidden
+    }
+    .card::after{content:""; position:absolute; inset:auto auto -40% -40%; width:160px; height:160px; transform:rotate(25deg);
+      background:linear-gradient(135deg, rgba(90,169,255,0.15), rgba(0,198,255,0.12)); filter:blur(5px)}
+    .card:hover{transform: translateY(-4px); transition:transform .35s ease}
+
+    /* SKILLS */
+    .skill{display:grid; gap:10px}
+    .meter{height:12px; background:rgba(255,255,255,0.08); border-radius:999px; overflow:hidden}
+    .meter > span{display:block; height:100%; width:0; background:linear-gradient(90deg,var(--brand1),var(--brand2)); border-radius:999px}
+
+    /* PROJECTS carousel */
+    .carousel{position:relative}
+    .track{display:flex; gap:16px; overflow-x:auto; scroll-snap-type:x mandatory; padding-bottom:8px}
+    .track::-webkit-scrollbar{height:8px}
+    .track::-webkit-scrollbar-thumb{background:rgba(255,255,255,0.2); border-radius:999px}
+   .proj {
+  min-width: 360px;   /* pehle 320px tha, ab thoda bada */
+  max-width: 420px;   /* optional: ek upper limit bhi */
+  flex-shrink: 0;     /* shrink hone se bacha lega */
+  scroll-snap-align: start;
+}
+
+    .proj img{width:100%; height:180px; object-fit:cover; border-radius:12px; border:1px solid rgba(255,255,255,0.08)}
+    .car-btn{position:absolute; top:40%; transform:translateY(-50%); border:none; width:44px; height:44px; border-radius:50%;
+      background:rgba(0,0,0,0.35); color:#fff; cursor:pointer; backdrop-filter: blur(6px)}
+    .car-btn:hover{background:rgba(0,0,0,0.5)}
+    .car-prev{left:-6px} .car-next{right:-6px}
+
+    /* GALLERY */
+ .gallery {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 16px;
+}
+
+.gallery img {
+  width: 100%;
+  height: 500px;              /* fix height */
+  border-radius: 14px;
+  border: 1px solid rgba(255,255,255,0.08);
+  object-fit: cover;          /* crop image neatly */
+  cursor: pointer;
+}
+
+
+
+    /* LIGHTBOX */
+    .lightbox{position:fixed; inset:0; background:rgba(0,0,0,0.85); display:none; align-items:center; justify-content:center; z-index:100}
+    .lightbox img, .lightbox video{max-width:92vw; max-height:86vh; border-radius:14px; border:1px solid rgba(255,255,255,0.12)}
+
+    /* CONTACT */
+    .contact{display:grid; gap:18px; grid-template-columns:2fr 1fr}
+    .contact a{color:var(--accent)}
+    @media (max-width:900px){.contact{grid-template-columns:1fr}}
+
+    /* FAB */
+    .fab{position:fixed; right:18px; bottom:18px; width:48px; height:48px; border-radius:50%; display:grid; place-items:center; cursor:pointer;
+      background:linear-gradient(135deg,var(--brand1),var(--brand2)); color:#001226; box-shadow:var(--shadow)}
+
+    /* REVEAL ANIMATIONS */
+    .reveal{opacity:0; transform:translateY(18px); transition:opacity .7s ease, transform .7s ease}
+    .reveal.show{opacity:1; transform:translateY(0)}
+
+    /* SMALL UTIL */
+    .muted{color:var(--muted)}
+    .row{display:flex; gap:10px; flex-wrap:wrap}
+    .pill{padding:6px 10px; border-radius:999px; border:1px solid rgba(255,255,255,0.12); background:rgba(255,255,255,0.05)}
+    
+  </style>
+</head>
+<body>
+  <!-- NAVBAR -->
+  <nav class="nav">
+    <div class="brand"><span class="dot"></span> Parampreet Singh</div>
+    <div>
+      <a href="#skills">Skills</a>
+      <a href="#projects">Projects</a>
+      <a href="#gallery">Gallery</a>
+      <a href="#education">Education</a>
+      <a href="#contact" class="cta">Contact</a>
+    </div>
+  </nav>
+
+  <!-- HERO with BACKGROUND VIDEO -->
+  <header class="hero" id="about">
+    <video src="assets/hero.mp4" autoplay muted loop playsinline poster="assets/hero-poster.jpg"></video>
+    <div class="overlay"></div>
+    <div class="content">
+      <div class="title">Hi, I'm Parampreet Singh</div>
+      <div class="subtitle" id="typing">Java & MERN Developer • DSA • OOPs</div>
+      <div class="chips">
+        <span class="chip">Java</span>
+        <span class="chip">C++</span>
+        <span class="chip">MERN Stack</span>
+        <span class="chip">Data Structure & Algorithms</span>
+        <span class="chip">DataBase</span>
+      </div>
+      <div class="actions">
+        <a class="btn primary" href="https://www.linkedin.com/in/parampreet-singh-4a3396271/">Connect</a>
+        <a class="btn ghost" href="#projects">View Projects</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- SKILLS -->
+  <section id="skills">
+    <h2 class="section-title">Skills</h2>
+    <p class="section-sub">Core competencies across programming, web, databases and CS fundamentals.</p>
+    <div class="grid cols-2">
+      <div class="card reveal">
+        <h3>Programming</h3>
+        <div class="skill">
+          <div class="row"><span class="pill">Java</span><span class="pill">C++</span><span class="pill">Python</span></div>
+          <div class="meter"><span data-value="92%"></span></div>
+        </div>
+      </div>
+      <div class="card reveal">
+        <h3>Web Development</h3>
+        <div class="skill">
+          <div class="row"><span class="pill">HTML</span><span class="pill">CSS</span><span class="pill">JavaScript</span><span class="pill">React</span><span class="pill">Node.js</span><span class="pill">Express.js</span><span class="pill">EJS</span></div>
+          <div class="meter"><span data-value="88%"></span></div>
+        </div>
+      </div>
+      <div class="card reveal">
+        <h3>Databases</h3>
+        <div class="skill">
+          <div class="row"><span class="pill">MySQL</span><span class="pill">MongoDB</span><span class="pill">PostgreSQL</span></div>
+          <div class="meter"><span data-value="84%"></span></div>
+        </div>
+      </div>
+      <div class="card reveal">
+        <h3>Core CS</h3>
+        <div class="skill">
+          <div class="row"><span class="pill">DSA</span><span class="pill">OOPs</span></div>
+          <div class="meter"><span data-value="95%"></span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROJECTS (carousel) -->
+<!-- PROJECTS (carousel) -->
+<section id="projects">
+  <h2 class="section-title">Academic Projects</h2>
+  <p class="section-sub">Selected work showcasing full-stack skills and data structures.</p>
+
+  <div class="carousel">
+    <button class="car-btn car-prev" aria-label="Previous">◀</button>
+    <div class="track" id="projectTrack">
+      <article class="card proj reveal">
+        <h3>Student Attendance Tracker</h3>
+        <p class="muted">Node.js • MongoDB • Express • EJS</p>
+        <ul>
+          <li>Full-stack system for records, attendance & notifications.</li>
+          <li>CRUD with MongoDB; EJS UI; email alerts.</li>
+        </ul>
+        <div class="row" style="margin-top:8px">
+        </div>
+      </article>
+
+      <article class="card proj reveal">
+        <h3>CLI Student Attendance System</h3>
+        <p class="muted">Java • MySQL • DSA (BST, Stack, Queue)</p>
+        <ul>
+          <li>Command-line app with MySQL storage.</li>
+          <li>BST for insert/delete/search/update.</li>
+          <li>Attendance history via Stack/Queue.</li>
+        </ul>
+        <div class="row" style="margin-top:8px">
+        </div>
+      </article>
+
+      <!-- More projects notice -->
+      <article class="card proj reveal" style="display:flex; align-items:center; justify-content:center; text-align:center">
+        <div>
+          <h3>Want to see more?</h3>
+          <p class="muted">Check out my other projects on GitHub.</p>
+          <a class="btn primary" href="https://github.com/ParampreetSingh23" target="_blank">Visit GitHub →</a>
+        </div>
+      </article>
+    </div>
+    <button class="car-btn car-next" aria-label="Next">▶</button>
+  </div>
+</section>
+
+
+  <!-- MEDIA GALLERY (images + optional video) -->
+  <section id="gallery">
+    <h2 class="section-title">Gallery</h2>
+    <p class="section-sub">Photos & clips – events, hackathons, gaming highlights.</p>
+    <div class="gallery reveal" id="galleryGrid">
+      <img src="assets/image1.jpg" alt="Gallery image 1" loading="lazy" />
+      <img src="assets/image2.jpg" alt="Gallery image 2" loading="lazy" />
+      <!-- Optional short video tile -->
+    </div>
+    <div class="lightbox" id="lightbox"><img alt="preview" /></div>
+  </section>
+
+  <!-- EDUCATION -->
+  <section id="education">
+    <h2 class="section-title">Education</h2>
+    <div class="grid cols-2">
+      <div class="card reveal">
+        <h3>BE CSE • Chitkara University, Punjab</h3>
+        <p class="muted">CGPA: 9.45</p>
+      </div>
+      <div class="card reveal">
+        <h3>XII (CBSE) • Doraha Public School, Punjab</h3>
+        <p class="muted">88.6% • 2023</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- POSITIONS + HOBBIES -->
+  <section>
+    <h2 class="section-title">Beyond Academics</h2>
+    <div class="grid cols-2">
+      <div class="card reveal">
+        <h3>Positions of Responsibility</h3>
+        <p class="muted">Member, Web Team • IEI (CUIET)</p>
+        <ul>
+          <li>Organized hackathons & conducted web dev sessions for 300+ students.</li>
+        </ul>
+      </div>
+      <!-- <div class="card reveal">
+        <h3>Hobbies & Interests</h3>
+        <div class="row">
+          <span class="pill">Gym & Discipline</span>
+          <span class="pill">Gaming</span>
+        </div>
+      </div> -->
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact">
+    <h2 class="section-title">Contact</h2>
+    <div class="contact">
+      <div class="card reveal">
+        <h3>Get in touch</h3>
+        <p><strong>Email:</strong> <a href="mailto:parampreetsinghlall@gmail.com">parampreetsinghlall@gmail.com</a></p>
+        <p><strong>Phone:</strong> <a href="tel:+919517705655">(+91) 9517705655</a></p>
+        <div class="row" style="margin-top:8px">
+          <a class="pill" href="https://github.com/ParampreetSingh23" target="_blank">GitHub</a>
+          <a class="pill" href="https://www.linkedin.com/in/parampreet-singh-4a3396271/" target="_blank">LinkedIn</a>
+        </div>
+      </div>
+      <div class="card reveal">
+        <h3>Resume</h3>
+        <p class="muted">Download a PDF version of my resume.</p>
+        <a class="btn primary" href="assets/Parampreet_Singh_Resume_Formatted (1).docx" download>Download Resume</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer style="text-align:center; padding:40px 18px; color:var(--muted)">
+    © <span id="year"></span> Parampreet Singh-Resume
+  </footer>
+
+  <!-- Back to top -->
+  <button class="fab" id="toTop" aria-label="Back to top">↑</button>
+
+  <script>
+    // Dynamic year
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // Typing effect (hero subtitle)
+    const typingEl = document.getElementById('typing');
+    const roles = [
+      'Java & MERN Developer • DSA • OOPs',
+      'Building full‑stack apps with Node & React',
+      'Data Structures • Algorithms • Clean Code'
+    ];
+    let ri = 0, ci = 0, erasing = false;
+    function typeLoop(){
+      const txt = roles[ri];
+      if(!erasing){
+        typingEl.textContent = txt.slice(0, ++ci);
+        if(ci === txt.length){ erasing = true; setTimeout(typeLoop, 1400); return; }
+        setTimeout(typeLoop, 35);
+      } else {
+        typingEl.textContent = txt.slice(0, --ci);
+        if(ci === 0){ erasing = false; ri = (ri+1)%roles.length; }
+        setTimeout(typeLoop, 22);
+      }
+    }
+    typeLoop();
+
+    // Reveal on scroll using IntersectionObserver
+    const io = new IntersectionObserver((entries)=>{
+      entries.forEach(e=>{
+        if(e.isIntersecting){
+          e.target.classList.add('show');
+          // Animate meters once
+          e.target.querySelectorAll('.meter > span').forEach(span=>{
+            const val = span.getAttribute('data-value');
+            span.style.width = val;
+            span.style.transition = 'width 1.4s ease';
+          });
+          io.unobserve(e.target);
+        }
+      });
+    }, {threshold: 0.18});
+    document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+
+    // Carousel controls
+    const track = document.getElementById('projectTrack');
+    document.querySelector('.car-prev').onclick = ()=> track.scrollBy({left:-360, behavior:'smooth'});
+    document.querySelector('.car-next').onclick = ()=> track.scrollBy({left: 360, behavior:'smooth'});
+
+    // Lightbox for gallery
+    const lightbox = document.getElementById('lightbox');
+    const lbImg = lightbox.querySelector('img');
+    document.getElementById('galleryGrid').addEventListener('click', (e)=>{
+      const t = e.target;
+      if(t.tagName === 'IMG'){
+        lbImg.src = t.src; lbImg.style.display='block';
+        if(lightbox.querySelector('video')) lightbox.querySelector('video').remove();
+        lightbox.style.display='flex';
+      }
+    });
+    lightbox.addEventListener('click', ()=> lightbox.style.display='none');
+
+    // Back to top
+    document.getElementById('toTop').addEventListener('click', ()=> window.scrollTo({top:0, behavior:'smooth'}));
+
+    // Lazy load hero video (ensures quick paint)
+    window.addEventListener('load', ()=>{
+      const v = document.querySelector('.hero video');
+      if(v && v.readyState === 0){
+        v.load();
+      }
+    });
+  </script>
+</body>
+</html>
